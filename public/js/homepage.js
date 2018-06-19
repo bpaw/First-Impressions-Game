@@ -13,23 +13,36 @@ column2 = ["13722173_688226341331205_1180925104_n.jpg",
 var main = function() {
   console.log("hello from the js directory!");
 
+  LEFT_PIC = 0;
+  RIGHT_PIC = 1;
+
   col1_count = 0;
   col2_count = 0;
 
-  function nextImg (picture_array, index) {
+  var nextImg = function(picture_array, index) {
     console.log("nextImg called")
     return dev_pics_dir + picture_array[index];
   }
 
-  function loadNextPicture() {
+  var clickedRight = function() {
+    loadNextPicture(RIGHT_PIC)
+  }
+
+  var clickedLeft = function() {
+    loadNextPicture(LEFT_PIC)
+  }
+
+  var loadNextPicture = function(decision) {
+    let msg = (decision == LEFT_PIC) ? "left picture" : "right picture";
+    alert(msg);
     document.getElementById("image1").src = nextImg(column1, col1_count);
     document.getElementById("image2").src = nextImg(column2, col2_count);
     col2_count++;
     col1_count++;
   }
 
-  document.getElementById("image1").onclick = loadNextPicture;
-  document.getElementById("image2").onclick = loadNextPicture;
+  document.getElementById("image2").onclick = clickedRight;
+  document.getElementById("image1").onclick = clickedLeft;
 }
 
 
