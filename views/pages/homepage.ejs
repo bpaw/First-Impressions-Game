@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '1349980535133651',
+          cookie     : true,
+          xfbml      : true,
+          version    : 'v2.8'
+        });
+
+        FB.AppEvents.logPageView();
+
+      };
+
+      function checkLoginState() {
+        FB.getLoginStatus(function(response) {
+          alert("FB.getLoginStatus():" + response.status);
+          if (response.status == 'connected') {
+            //id = response.authResponse.userId;
+            //alert("The user id is " + id);
+            FB.api('/me', function(response) {
+              alert("in the FB.api call");
+              alert(response.id);
+              var im = document.getElementById("profile").setAttribute("src", "http://graph.facebook.com/" + response.id + "/picture?type=normal");
+            });
+          } else {
+            alert("not logged in");
+          }
+        });
+      }
+
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "https://connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+    </script>
+  <% include ../partials/nav.ejs %>
+
+<div class="jumbotron text-center">
+  <div class="container">
+    <a href="/" class="lang-logo">
+      <img src="/lang-logo.png">
+    </a>
+    <h1>First Impressions</h1>
+    <p>This is a sample Node application deployed to Heroku. It's a reasonably simple app - but a good foundation for understanding how to get the most out of the Heroku platform.</p>
+    <fb:login-button
+      scope="public_profile,email"
+      onlogin="checkLoginState();">
+    </fb:login-button>
+    <a type="button" class="btn btn-lg btn-primary" href="https://github.com/heroku/node-js-getting-started"><span class="glyphicon glyphicon-download"></span> Source on GitHub</a>
+  </div>
+</div>
+<div class="container">
+  <div class="alert alert-info text-center" role="alert">
+    To deploy your own copy, and learn the fundamentals of the Heroku platform, head over to the <a href="https://devcenter.heroku.com/articles/getting-started-with-nodejs" class="alert-link">Getting Started with Node on Heroku</a> tutorial.
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-6">
+      <!-- <h3><span class="glyphicon glyphicon-info-sign"></span> -->
+       <h3> Image 1</h3>
+        <img class="image" id="image1" src="/dev_pictures/11420767_1676726252572304_1928959022_n.jpg"/>
+       <!--
+      <ul>
+        <li>This app was deployed to Heroku, either using Git or by using <a href="https://github.com/heroku/node-js-getting-started">Heroku Button</a> on the repository.</li>
+
+        <li>When Heroku received the source code, it fetched all the dependencies in the <a href="https://github.com/heroku/node-js-getting-started/blob/master/package.json">package.json</a>, creating a deployable slug.</li>
+        <li>The platform then spins up a dyno, a lightweight container that provides an isolated environment in which the slug can be mounted and executed.</li>
+        <li>You can scale your app, manage it, and deploy over <a href="https://addons.heroku.com/">150 add-on services</a>, from the Dashboard or CLI.</li>
+      </ul>
+      -->
+    </div>
+    <div class="col-md-6">
+      <h3>
+        <!-- <span class="glyphicon glyphicon-link"></span>  -->
+        Image 2</h3>
+        <img class="image" id="image2" src="/dev_pictures/21820307_485043711869087_1323451463107608576_n.jpg"/>
+      <!--
+      <ul>
+        <li>If you are following the <a href="https://devcenter.heroku.com/articles/getting-started-with-nodejs">Getting Started</a> guide, then please head back to the tutorial and follow the /dev_pictures/next steps!</li>
+root_dir = '../'
+root_dir = '../'
+root_dir = '../'
+        <li>If you deployed this app by deploying the Heroku Button, then in a command line shell, run:</li>
+root_dir = '../'
+root_dir = '../'
+        <ul>
+          <li><code>git clone https://github.com/heroku/node-js-getting-started.git</code> - this will create a local copy of the source code for the app</li>
+          <li><code>cd node-js-getting-started</code> - change directory into the local source code repository</li>
+          <li><code>heroku git:remote -a &lt;your-app-name></code> - associate the Heroku app with the repository</li>
+          <li>You'll now be set up to run the app locally, or <a href="https://devcenter.heroku.com/articles/getting-started-with-nodejs#push-local-changes">deploy changes</a> to Heroku</li>
+        </ul>
+      </ul>
+      <h3><span class="glyphicon glyphicon-link"></span> Helpful Links</h3>
+      <ul>
+        <li><a href="https://www.heroku.com/home">Heroku</a></li>
+        <li><a href="https://devcenter.heroku.com/">Heroku Dev Center</a></li>
+        <li><a href="https://devcenter.heroku.com/articles/getting-started-with-nodejs">Getting Started with Node on Heroku</a></li>
+        <li><a href="https://devcenter.heroku.com/articles/deploying-nodejs">Deploying Node Apps on Heroku</a></li>
+      </ul>
+      -->
+    </div>
+  </div> <!-- row -->
+   <div class="alert alert-info text-center" role="alert">
+    Please do work through the Getting Started guide, even if you do know how to build such an application.  The guide covers the basics of working with Heroku, and will familiarize you with all the concepts you need in order to build and deploy your own apps.
+  </div>
+</div>
+
+<img id="profile"/>
+
+  <script src="/js/homepage.js"></script>
+</body>
+</html>
